@@ -1,11 +1,11 @@
 {
-  "name": "meanjs",
-  "description": "Full-Stack JavaScript with MongoDB, Express, AngularJS, and Node.js.",
+  "name": "nexmo-dashboard",
+  "description": "Full-Stack JavaScript with MongoDB, Express, AngularJS, and Node.js",
   "version": "0.5.0",
   "meanjs-version": "0.5.0",
   "private": false,
-  "author": "https://github.com/meanjs/mean/graphs/contributors",
-  "license": "MIT",
+  "author": "Chyke",
+  "license": "ISC",
   "repository": {
     "type": "git",
     "url": "https://github.com/meanjs/mean.git"
