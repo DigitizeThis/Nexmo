@@ -11,6 +11,8 @@ var _ = require('lodash'),
   glob = require('glob'),
   gulp = require('gulp'),
   sass = require('gulp-sass'),
+  browserSync = require('browser-sync').create(),
+  reload = browserSync.reload,
   gulpLoadPlugins = require('gulp-load-plugins'),
   runSequence = require('run-sequence'),
   plugins = gulpLoadPlugins({
@@ -46,14 +48,35 @@ gulp.task('env:prod', function () {
   process.env.NODE_ENV = 'production';
 });
 
+// BrowserSnc task
+gulp.task('browserSync', ['nodemon'], function() {
+  browserSync.init({
+    proxy: "localhost:3000",  // local node app address
+    port: 5000,  // use *different* port than above
+    notify: true
+  });
+});
+
 // Nodemon task
-gulp.task('nodemon', function () {
+gulp.task('nodemon', [], function (done) {
+  var running = false;
   return plugins.nodemon({
     script: 'server.js',
     nodeArgs: ['--debug'],
     ext: 'js,html',
     verbose: true,
     watch: _.union(defaultAssets.server.views, defaultAssets.server.allJS, defaultAssets.server.config)
+  })
+  .on('start', function () {
+    if (!running) {
+      done();
+    }
+    running = true;
+  })
+  .on('restart', function () {
+    setTimeout(function () {
+      reload({ stream: false });
+    }, 1000);
   });
 });
 
@@ -67,17 +90,17 @@ gulp.task('nodemon-nodebug', function () {
 });
 
 // Watch Files For Changes
-gulp.task('watch', function () {
+gulp.task('watch', ['browserSync'], function () {
   // Start livereload
   plugins.refresh.listen();
 
   // Add watch rules
-  gulp.watch(defaultAssets.server.views).on('change', plugins.refresh.changed);
+  gulp.watch(defaultAssets.server.views, ['browserSync']).on('change', plugins.refresh.changed);
   gulp.watch(defaultAssets.server.allJS, ['eslint']).on('change', plugins.refresh.changed);
-  gulp.watch(defaultAssets.client.js, ['eslint']).on('change', plugins.refresh.changed);
-  gulp.watch(defaultAssets.client.css, ['csslint']).on('change', plugins.refresh.changed);
-  gulp.watch(defaultAssets.client.sass, ['sass', 'csslint']).on('change', plugins.refresh.changed);
-  gulp.watch(defaultAssets.client.less, ['less', 'csslint']).on('change', plugins.refresh.changed);
+  gulp.watch(defaultAssets.client.js, ['browserSync', 'eslint']).on('change', plugins.refresh.changed);
+  gulp.watch(defaultAssets.client.css).on('change', plugins.refresh.changed);
+  gulp.watch(defaultAssets.client.sass, ['browserSync', 'sass', 'csslint']).on('change', plugins.refresh.changed);
+  gulp.watch(defaultAssets.client.less, ['browserSync', 'less', 'csslint']).on('change', plugins.refresh.changed);
 
   if (process.env.NODE_ENV === 'production') {
     gulp.watch(defaultAssets.server.gulpConfig, ['templatecache', 'eslint']);
@@ -436,7 +459,7 @@ gulp.task('test:coverage', function (done) {
 
 // Run the project in development mode
 gulp.task('default', function (done) {
-  runSequence('env:dev', ['copyLocalEnvConfig', 'makeUploadsDir'], ['sass'], 'lint', ['nodemon', 'watch'], done);
+  runSequence('env:dev', ['copyLocalEnvConfig', 'makeUploadsDir'], ['browserSync', 'sass'], 'lint', ['nodemon', 'watch'], done);
 });
 
 // Run the project in debug mode

@@ -76,6 +76,7 @@
     "wiredep": "~4.0.0"
   },
   "devDependencies": {
+    "browser-sync": "^2.18.1",
     "coveralls": "~2.11.6",
     "del": "^2.2.2",
     "eslint": "~2.2.0",
