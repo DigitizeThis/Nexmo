@@ -1,0 +1,135 @@
+/**************** Fonts *****************/
+$font-sizes: (
+  xs: 12px,
+  s: 14px,
+  m: 16px,
+  l: 22px,
+  xl: 32px,
+);
+
+;
+$font-family-sans-serif:    'Helvetica Neue', 'HelveticaNeue-Light', 'Helvetica Neue Light', Helvetica, Arial, 'Lucida Grande', sans-serif;
+$font-family-custom:        'Roboto', sans-serif;
+$font-size-base:            14px;
+$font-size-large:           ceil(($font-size-base * 1.25)); // ~18px
+$font-size-small:           ceil(($font-size-base * 0.85));
+
+$font-size-h1:				      floor(($font-size-base * 2.6)); // ~36px
+$font-size-h2:				      floor(($font-size-base * 2.15)); // ~30px
+$font-size-h3:				      ceil(($font-size-base * 1.7)); // ~24px
+$font-size-h4:				      ceil(($font-size-base * 1.25)); // ~18px
+$font-size-h5:				      $font-size-base;
+$font-size-h6:				      ceil(($font-size-base * 0.85)); // ~12px
+
+
+/**************** Colors *****************/
+$colors: (
+  black:                    #000000,
+  darkblue:                 #2c3034,
+  white:                    #FFFFFF,
+
+  gray-1:                   #333333, // 87% opacity of black on white
+  gray-2:                   #999999, // 54% opacity of black on white
+  gray-3:                   #787878, // 26% opacity of black on white
+  gray-4:                   #adb6ba, // 12% opacity of black on white
+  gray-5:                   #a9a9a9,
+  gray-6:                   #f5f5f5,
+
+  blue-1:                   #428bca,
+  blue-2:                   #77CCFF,
+
+  yellow-1:                 #D6AF00,
+  yellow-2:                 #FFE675
+);
+
+$white:                     #FFFFFF;
+$darkblue:                  #2c3034;
+$darkerblue:                #033f61;
+
+/**************** Backgrounds *****************/
+$body-bg:                   $brand-primary;
+
+
+/**************** Typography *****************/
+$brand-primary:             darken(#009ac7, 6.5%); // ##009ac7
+$brand-success:             #5cb85c;
+$brand-info:                #5bc0de;
+$brand-warning:             #f0ad4e;
+$brand-danger:              #d9534f;
+
+
+//** Global text colors
+$text-color:            $gray-dark;
+$link-color:            $brand-primary;
+$link-hover-color:      darken($link-color, 15%);
+$link-hover-decoration: underline;
+
+
+/**************** Button Colors *****************/
+$btn-default-color:         $gray;
+$btn-default-bg:            $white;
+$btn-default-border:        #ccc;
+
+$btn-primary-color:         $white;
+$btn-primary-bg:            $brand-primary;
+$btn-primary-border:        darken($btn-primary-bg, 5%);
+
+$btn-success-color:         $white;
+$btn-success-bg:            $brand-success;
+$btn-success-border:        darken($btn-success-bg, 5%);
+
+$btn-info-color:            $white;
+$btn-info-bg:               $brand-info;
+$btn-info-border:           darken($btn-info-bg, 5%);
+
+$btn-warning-color:         $white;
+$btn-warning-bg:            $brand-warning;
+$btn-warning-border:        darken($btn-warning-bg, 5%);
+
+$btn-danger-color:          $white;
+$btn-danger-bg:             $brand-danger;
+$btn-danger-border:         darken($btn-danger-bg, 5%);
+
+$btn-link-disabled-color:   $gray-light;
+
+
+/**************** Globals *****************/
+$one-px: 					          1px;
+
+$pad-start:                 22px;
+$padding-base-vertical:     6px;
+$padding-base-horizontal:   12px;
+
+$line-height-base:			     1.428571429;
+
+$border-radius-base:        4px;
+$border-radius-large:       6px;
+$border-radius-small:       3px;
+
+
+/**************** Viewports *****************/
+/*  MEDIA QUERIES ==========================*/
+$screen-xs:                  480px;
+$screen-xs-min:              $screen-xs;
+$screen-phone:               $screen-xs-min;
+
+$screen-sm:                  768px;
+$screen-sm-min:              $screen-sm;
+$screen-tablet:              $screen-sm-min;
+
+// Medium screen / desktop
+$screen-md:                  992px;
+$screen-md-min:              $screen-md;
+
+// Large screen / wide desktop
+//** Deprecated `$screen-lg` as of v3.0.1
+$screen-lg:                  1200px;
+$screen-lg-min:              $screen-lg;
+
+$screen-ultra:                1400px;
+
+
+// So media queries don't overlap when required, provide a maximum
+$screen-xs-max:              ($screen-sm-min - 1);
+$screen-sm-max:              ($screen-md-min - 1);
+$screen-md-max:              ($screen-lg-min - 1);

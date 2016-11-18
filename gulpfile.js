@@ -10,6 +10,7 @@ var _ = require('lodash'),
   testConfig = require('./config/env/test'),
   glob = require('glob'),
   gulp = require('gulp'),
+  sass = require('gulp-sass'),
   gulpLoadPlugins = require('gulp-load-plugins'),
   runSequence = require('run-sequence'),
   plugins = gulpLoadPlugins({
@@ -166,7 +167,7 @@ gulp.task('cssmin', function () {
 
 // Sass task
 gulp.task('sass', function () {
-  return gulp.src(defaultAssets.client.sass)
+  return gulp.src(defaultAssets.client.css)
     .pipe(plugins.sass())
     .pipe(plugins.autoprefixer())
     .pipe(gulp.dest('./modules/'));
@@ -399,7 +400,7 @@ gulp.task('protractor', ['webdriver_update'], function () {
 
 // Lint CSS and JavaScript files.
 gulp.task('lint', function (done) {
-  runSequence('less', 'sass', ['csslint', 'eslint'], done);
+  runSequence('less', ['sass'], ['csslint', 'eslint'], done);
 });
 
 // Lint project files and minify them into two production files.
@@ -435,7 +436,7 @@ gulp.task('test:coverage', function (done) {
 
 // Run the project in development mode
 gulp.task('default', function (done) {
-  runSequence('env:dev', ['copyLocalEnvConfig', 'makeUploadsDir'], 'lint', ['nodemon', 'watch'], done);
+  runSequence('env:dev', ['copyLocalEnvConfig', 'makeUploadsDir'], ['sass'], 'lint', ['nodemon', 'watch'], done);
 });
 
 // Run the project in debug mode

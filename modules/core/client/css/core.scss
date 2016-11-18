@@ -1,0 +1,11 @@
+$icon-font-path: "public/lib/bootstrap-sass/assets/fonts/bootstrap";
+$fa-font-path: "public/lib/font-awesome/fonts/";
+@import url(https://fonts.googleapis.com/css?family=Roboto);
+
+// bower:scss
+@import "public/lib/bootstrap-sass/assets/stylesheets/bootstrap";
+@import "public/lib/font-awesome/scss/font-awesome";
+@import "variables";
+@import "mixins";
+@import "main";
+// endbower
