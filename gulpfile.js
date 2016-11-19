@@ -8,10 +8,11 @@ var _ = require('lodash'),
   defaultAssets = require('./config/assets/default'),
   testAssets = require('./config/assets/test'),
   testConfig = require('./config/env/test'),
+  browserSync = require('browser-sync').create(),
   glob = require('glob'),
   gulp = require('gulp'),
   sass = require('gulp-sass'),
-  browserSync = require('browser-sync').create(),
+  nodemon = require('gulp-nodemon'),
   reload = browserSync.reload,
   gulpLoadPlugins = require('gulp-load-plugins'),
   runSequence = require('run-sequence'),
@@ -49,16 +50,16 @@ gulp.task('env:prod', function () {
 });
 
 // BrowserSnc task
-gulp.task('browserSync', ['nodemon'], function() {
-  browserSync.init({
-    proxy: "localhost:3000",  // local node app address
+gulp.task('browser-sync', ['nodemon'], function() {
+  browserSync.init(null, {
+    proxy: 'http://localhost:3000',
     port: 5000,  // use *different* port than above
     notify: true
   });
 });
 
 // Nodemon task
-gulp.task('nodemon', [], function (done) {
+gulp.task('nodemon', function (done) {
   var running = false;
   return plugins.nodemon({
     script: 'server.js',
@@ -70,13 +71,8 @@ gulp.task('nodemon', [], function (done) {
   .on('start', function () {
     if (!running) {
       done();
+      running = true;
     }
-    running = true;
-  })
-  .on('restart', function () {
-    setTimeout(function () {
-      reload({ stream: false });
-    }, 1000);
   });
 });
 
@@ -90,17 +86,17 @@ gulp.task('nodemon-nodebug', function () {
 });
 
 // Watch Files For Changes
-gulp.task('watch', ['browserSync'], function () {
+gulp.task('watch', function () {
   // Start livereload
   plugins.refresh.listen();
 
   // Add watch rules
-  gulp.watch(defaultAssets.server.views, ['browserSync']).on('change', plugins.refresh.changed);
+  gulp.watch(defaultAssets.server.views).on('change', reload, plugins.refresh.changed);
   gulp.watch(defaultAssets.server.allJS, ['eslint']).on('change', plugins.refresh.changed);
-  gulp.watch(defaultAssets.client.js, ['browserSync', 'eslint']).on('change', plugins.refresh.changed);
-  gulp.watch(defaultAssets.client.css).on('change', plugins.refresh.changed);
-  gulp.watch(defaultAssets.client.sass, ['browserSync', 'sass', 'csslint']).on('change', plugins.refresh.changed);
-  gulp.watch(defaultAssets.client.less, ['browserSync', 'less', 'csslint']).on('change', plugins.refresh.changed);
+  gulp.watch(defaultAssets.client.js, ['eslint']).on('change', plugins.refresh.changed);
+  gulp.watch(defaultAssets.client.css, ['csslint']).on('change', plugins.refresh.changed);
+  gulp.watch(defaultAssets.client.sass, ['sass', 'csslint']).on('change', plugins.refresh.changed);
+  gulp.watch(defaultAssets.client.less, ['less', 'csslint']).on('change', plugins.refresh.changed);
 
   if (process.env.NODE_ENV === 'production') {
     gulp.watch(defaultAssets.server.gulpConfig, ['templatecache', 'eslint']);
@@ -190,10 +186,13 @@ gulp.task('cssmin', function () {
 
 // Sass task
 gulp.task('sass', function () {
-  return gulp.src(defaultAssets.client.css)
-    .pipe(plugins.sass())
+  return gulp.src(defaultAssets.client.sass)
+    .pipe(plugins.sass().on('error', sass.logError))
     .pipe(plugins.autoprefixer())
-    .pipe(gulp.dest('./modules/'));
+    .pipe(gulp.dest('./modules/'))
+    .pipe(reload({
+      stream: true
+    }));
 });
 
 // Less task
@@ -287,9 +286,9 @@ gulp.task('templatecache', function () {
     .pipe(plugins.templateCache('templates.js', {
       root: 'modules/',
       module: 'core',
-      templateHeader: '(function () {' + endOfLine + '	\'use strict\';' + endOfLine + endOfLine + '	angular' + endOfLine + '		.module(\'<%= module %>\'<%= standalone %>)' + endOfLine + '		.run(templates);' + endOfLine + endOfLine + '	templates.$inject = [\'$templateCache\'];' + endOfLine + endOfLine + '	function templates($templateCache) {' + endOfLine,
-      templateBody: '		$templateCache.put(\'<%= url %>\', \'<%= contents %>\');',
-      templateFooter: '	}' + endOfLine + '})();' + endOfLine
+      templateHeader: '(function () {' + endOfLine + '  \'use strict\';' + endOfLine + endOfLine + '  angular' + endOfLine + '    .module(\'<%= module %>\'<%= standalone %>)' + endOfLine + '    .run(templates);' + endOfLine + endOfLine + ' templates.$inject = [\'$templateCache\'];' + endOfLine + endOfLine + '  function templates($templateCache) {' + endOfLine,
+      templateBody: '   $templateCache.put(\'<%= url %>\', \'<%= contents %>\');',
+      templateFooter: ' }' + endOfLine + '})();' + endOfLine
     }))
     .pipe(gulp.dest('build'));
 });
@@ -423,7 +422,7 @@ gulp.task('protractor', ['webdriver_update'], function () {
 
 // Lint CSS and JavaScript files.
 gulp.task('lint', function (done) {
-  runSequence('less', ['sass'], ['csslint', 'eslint'], done);
+  runSequence('less', 'sass', ['csslint', 'eslint'], done);
 });
 
 // Lint project files and minify them into two production files.
@@ -458,8 +457,8 @@ gulp.task('test:coverage', function (done) {
 });
 
 // Run the project in development mode
-gulp.task('default', function (done) {
-  runSequence('env:dev', ['copyLocalEnvConfig', 'makeUploadsDir'], ['browserSync', 'sass'], 'lint', ['nodemon', 'watch'], done);
+gulp.task('default', ['browser-sync', 'sass'], function (done) {
+  runSequence('env:dev', ['copyLocalEnvConfig', 'makeUploadsDir'], 'lint', ['nodemon', 'watch'], done);
 });
 
 // Run the project in debug mode

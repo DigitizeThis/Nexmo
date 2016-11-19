@@ -14,7 +14,7 @@ html,
 body {
   height: 100%;
   color: $darkblue;
-  background-color: $body-bg;
+  background-color: $darkblue;
   @include helvetica-stack();
 }
 body {
@@ -157,6 +157,7 @@ body {
         margin-left: auto;
         p {
           text-decoration: none !important;
+          color: $white;
         }
         .masthead {
           .masthead-brand {
