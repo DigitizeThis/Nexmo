@@ -95,7 +95,7 @@ body {
   }
   p {
     font-size: $font-size-base;
-    color: #787878; /*#2c3034*/
+    color: $darkslategray; /*#2c3034*/
     &.lead {
 
     }
@@ -192,7 +192,7 @@ body {
                 border-bottom: 2px solid transparent;
                 &:hover, &:focus {
                   background-color: transparent;
-                  border-bottom-color: color(gray-5);
+                  border-bottom-color: color(gray-15);
                   border-bottom-color: rgba(255,255,255,.25);
                 }
               }
@@ -301,11 +301,11 @@ body {
       }
       .footerwrap {
         padding: 10px 0;
-        color: color(gray-4);
+        color: color(gray-19);
         font-size: 12px;
         text-align: center;
         p {
-          color: color(gray-4);
+          color: color(gray-19);
           font-size: 12px;
           text-align: center;
           @media (min-width: $screen-md) {

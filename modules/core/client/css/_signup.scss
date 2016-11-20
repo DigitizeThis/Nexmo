@@ -9,7 +9,7 @@
 }
 
 .text-primary {
-  color: #000;
+  color: $black;
 }
 
 /* side nav */
@@ -18,7 +18,7 @@
   margin: 0;
   padding: 0;
   a {
-    color: #555555;
+    color: $black-mild;
   }
   li{
     margin: .4em 0;
@@ -32,7 +32,7 @@
 
 /* side info panel */
 .side-info-panel {
-  background-color: #ebebeb;
+  background-color: $silver-lightest;
   padding: 15px 12px;
   margin: 20px 0;
 }
@@ -44,7 +44,7 @@
   font-weight: 800;
   .fa {
     margin-top: .2em;
-    color: #555555;
+    color: $black-mild;
   }
 }
 
@@ -53,7 +53,7 @@
     list-style: none;
     margin: 0;
     padding: 0;
-    color: #555555;
+    color: $black-mild;
   }
 }
 
@@ -96,7 +96,7 @@ fieldset {
 .verify-support-services-error,
 .signup-nojs-error {
   .form-error {
-    background-color: #FFF2F2;
+    background-color: $lavenderblush;
     margin-top: 0px;
     padding: 1em;
   }
@@ -105,12 +105,12 @@ fieldset {
 .verify-support-services-error,
 .signup-nojs-error {
   .form-error {
-    color: #a94442;
+    color: $brown;
   }
 }
 
 .form-info {
-  background-color: #EFFAFF;
+  background-color: $aliceblue;
   margin-top: 0;
   padding: 1em;
   display: inline-block;
@@ -125,7 +125,7 @@ fieldset {
 
 .has-success {
   .form-info {
-    color: #787878;
+    color: $darkslategray;
   }
   .form-info.password-info {
     display: none;
@@ -162,7 +162,7 @@ fieldset {
   position: absolute;
   margin-left: -52px;
   margin-top: 9px;
-  color: #ABABAB;
+  color: $dimgray;
 }
 .question-help {
   &:hover{
@@ -171,7 +171,7 @@ fieldset {
 }
 .popover {
   max-width: 100%;
-  background-color: #F5F5F5;
+  background-color: $whitesmoke;
   border-radius: 0;
   &.popover-normal {
     max-width: 300px;
@@ -179,7 +179,7 @@ fieldset {
   &.bottom {
     & > .arrow {
       &:after {
-        border-bottom-color: #F5F5F5;
+        border-bottom-color: $whitesmoke;
       }
     }
   }
@@ -195,10 +195,10 @@ fieldset {
   }
   .help-block {
     &.form-error {
-      background-color: #FFF2F2;
+      background-color: $lavenderblush;
       margin-top: 1em;
       padding: 1em;
-      color: #a94442;
+      color: $brown;
       display: inline-block;
     }
   }
@@ -207,11 +207,11 @@ fieldset {
 #error-message-wrapper {
   position: initial;
   .form-error {
-    background-color: #FFF2F2;
+    background-color: $lavenderblush;
     width: 100%;
     margin-top: 1em;
     padding: 1em;
-    color: #a94442;
+    color: $brown;
     display: inline-block;
   }
 }
@@ -240,7 +240,7 @@ fieldset {
 
 /* misc */
 hr {
-  border-top: 1px solid #000;
+  border-top: 1px solid $black;
 }
 .spacer20 {
   margin-top: 20px;
@@ -250,6 +250,6 @@ hr {
 }
 .alert-success,
 .text-success {
-  color: #588215;
+  color: $green;
 }
 
