@@ -59,10 +59,13 @@ $brand-danger:              #d9534f;
 
 
 //** Global text colors
-$text-color:            $gray-dark;
-$link-color:            $brand-primary;
-$link-hover-color:      darken($link-color, 15%);
-$link-hover-decoration: underline;
+$text-color:                $gray-dark;
+$link-color:                $brand-primary;
+$link-hover-color:          darken($link-color, 15%);
+$link-hover-decoration:     underline;
+$border-box:                border-box;
+$border-radius:             4px;
+$user-select:               none;
 
 
 /**************** Button Colors *****************/

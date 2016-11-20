@@ -31,7 +31,11 @@
         url: '/',
         templateUrl: '/modules/core/client/views/home.client.view.html',
         controller: 'HomeController',
-        controllerAs: 'vm'
+        controllerAs: 'vm',
+        'class': 'homeclass',
+        onEnter: function ($rootScope) {
+          $rootScope.bodyClass = 'homeclass';
+        }
       })
       .state('footer', {
         url: '/',
@@ -77,5 +81,6 @@
           pageTitle: 'Forbidden'
         }
       });
+    $urlRouterProvider.otherwise('/');
   }
 }());

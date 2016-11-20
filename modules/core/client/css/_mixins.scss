@@ -19,6 +19,29 @@
   padding-start: $pad-start;
 }
 
+@mixin borderRadius($border-radius) {
+  -webkit-border-radius: $border-radius;
+  -moz-border-radius: $border-radius;
+  -o-border-radius: $border-radius;
+  -ms-border-radius: $border-radius;
+  border-radius: $border-radius;
+}
+
+@mixin borderBox($border-box) {
+  -webkit-box-sizing: $border-box;
+  -moz-box-sizing: $border-box;
+  -o-box-sizing: $border-box;
+  -ms-box-sizing: $border-box;
+  box-sizing: $border-box;
+}
+@mixin userSelect($user-select) {
+  -webkit-user-select: $border-box;
+  -moz-user-select: $border-box;
+  -o-user-select: $border-box;
+  -ms-user-select: $border-box;
+  user-select: $border-box;
+}
+
 @function color($color-name) {
   @return map-get($colors, $color-name);
 }

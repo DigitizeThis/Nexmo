@@ -1,0 +1,24 @@
+/*=========CHARTS==================*/
+section {
+  &.datachart {
+    margin: 40px auto;
+    padding: 20px 0;
+    h1 {
+      font-weight: 700;
+      font-size: 36px;
+      margin: 40px auto 5px;
+    }
+    .info {
+      margin: 40px auto 0;
+    }
+  }
+}
+#flot-line-chart {
+  height: 300px;
+}
+.hpanel {
+  .panel-heading {
+    height: 33px;
+  }
+}
+/*=========END CHARTS==================*/

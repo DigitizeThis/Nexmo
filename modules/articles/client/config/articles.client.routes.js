@@ -19,6 +19,7 @@
         templateUrl: '/modules/articles/client/views/list-articles.client.view.html',
         controller: 'ArticlesListController',
         controllerAs: 'vm',
+        viewClass: 'allbodyclass',
         data: {
           pageTitle: 'Articles List'
         }
