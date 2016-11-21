@@ -1,0 +1,22 @@
+<section>
+  <div class="page-header">
+    <h1>Voices</h1>
+  </div>
+  <div class="list-group">
+    <a ng-repeat="voice in vm.voices"
+       ui-sref="voices.view({ voiceId: voice._id })"
+       class="list-group-item">
+      <small class="list-group-item-text">
+        Posted on
+        <span ng-bind="voice.created | date:'mediumDate'"></span>
+        by
+        <span ng-if="voice.user" ng-bind="voice.user.displayName"></span>
+        <span ng-if="!voice.user">Deleted User</span>
+      </small>
+      <h4 class="list-group-item-heading" ng-bind="voice.name"></h4>
+    </a>
+  </div>
+  <div class="alert alert-warning text-center" ng-if="vm.voices.$resolved && !vm.voices.length">
+    No Voices yet, why don't you <a ui-sref="voices.create">create one</a>?
+  </div>
+</section>

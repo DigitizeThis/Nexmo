@@ -1,0 +1,22 @@
+<section>
+  <div class="page-header">
+    <h1>Phone verifications</h1>
+  </div>
+  <div class="list-group">
+    <a ng-repeat="phone-verification in vm.phoneVerifications"
+       ui-sref="phoneVerifications.view({ phone-verificationId: phone-verification._id })"
+       class="list-group-item">
+      <small class="list-group-item-text">
+        Posted on
+        <span ng-bind="phoneVerification.created | date:'mediumDate'"></span>
+        by
+        <span ng-if="phoneVerification.user" ng-bind="phoneVerification.user.displayName"></span>
+        <span ng-if="!phoneVerification.user">Deleted User</span>
+      </small>
+      <h4 class="list-group-item-heading" ng-bind="phone-verification.name"></h4>
+    </a>
+  </div>
+  <div class="alert alert-warning text-center" ng-if="vm.phoneVerifications.$resolved && !vm.phoneVerifications.length">
+    No Phone verifications yet, why don't you <a ui-sref="phoneVerifications.create">create one</a>?
+  </div>
+</section>

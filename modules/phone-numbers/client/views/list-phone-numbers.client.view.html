@@ -1,0 +1,22 @@
+<section>
+  <div class="page-header">
+    <h1>Phone numbers</h1>
+  </div>
+  <div class="list-group">
+    <a ng-repeat="phone-number in vm.phoneNumbers"
+       ui-sref="phoneNumbers.view({ phone-numberId: phone-number._id })"
+       class="list-group-item">
+      <small class="list-group-item-text">
+        Posted on
+        <span ng-bind="phoneNumber.created | date:'mediumDate'"></span>
+        by
+        <span ng-if="phoneNumber.user" ng-bind="phoneNumber.user.displayName"></span>
+        <span ng-if="!phoneNumber.user">Deleted User</span>
+      </small>
+      <h4 class="list-group-item-heading" ng-bind="phone-number.name"></h4>
+    </a>
+  </div>
+  <div class="alert alert-warning text-center" ng-if="vm.phoneNumbers.$resolved && !vm.phoneNumbers.length">
+    No Phone numbers yet, why don't you <a ui-sref="phoneNumbers.create">create one</a>?
+  </div>
+</section>

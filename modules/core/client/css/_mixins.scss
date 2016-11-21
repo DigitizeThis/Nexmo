@@ -72,11 +72,3 @@
   background-image: -o-linear-gradient($bg-grad-silver);
   background-image: linear-gradient($end-grad-silver );
 }
-
-@function color($color-name) {
-  @return map-get($colors, $color-name);
-}
-
-@function font-size($size-name) {
-  @return map-get($font-sizes, $size-name);
-}

@@ -39,7 +39,7 @@
 
 .side-info-panel-heading {
   font-size: 1.4em;
-  font-family: 'Roboto', sans-serif;
+  @include roboto-stack();
   margin-bottom: .4em;
   font-weight: 800;
   .fa {

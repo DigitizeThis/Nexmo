@@ -1,0 +1,22 @@
+<section>
+  <div class="page-header">
+    <h1>Number insights</h1>
+  </div>
+  <div class="list-group">
+    <a ng-repeat="number-insight in vm.numberInsights"
+       ui-sref="numberInsights.view({ number-insightId: number-insight._id })"
+       class="list-group-item">
+      <small class="list-group-item-text">
+        Posted on
+        <span ng-bind="numberInsight.created | date:'mediumDate'"></span>
+        by
+        <span ng-if="numberInsight.user" ng-bind="numberInsight.user.displayName"></span>
+        <span ng-if="!numberInsight.user">Deleted User</span>
+      </small>
+      <h4 class="list-group-item-heading" ng-bind="number-insight.name"></h4>
+    </a>
+  </div>
+  <div class="alert alert-warning text-center" ng-if="vm.numberInsights.$resolved && !vm.numberInsights.length">
+    No Number insights yet, why don't you <a ui-sref="numberInsights.create">create one</a>?
+  </div>
+</section>

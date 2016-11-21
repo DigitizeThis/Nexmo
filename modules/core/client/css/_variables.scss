@@ -55,14 +55,20 @@ $colors: (
   blue-4:                   #5897fb,
   blue-5:                   #3875d7,
   blue-6:                   #EFFAFF,
+  green-1:                  #588215,
 
-  green-1:                  #588215;
-
-  brown-1:                  #a94442;
+  brown-1:                  #a94442,
 
   yellow-1:                 #D6AF00,
   yellow-2:                 #FFE675
 );
+@function color($color-name) {
+  @return map-get($colors, $color-name);
+}
+
+@function font-size($size-name) {
+  @return map-get($font-sizes, $size-name);
+}
 
 $white:                     color(white);
 $lavenderblush:             color(white-2);
