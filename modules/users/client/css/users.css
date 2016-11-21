@@ -1,33 +1,29 @@
 @media (min-width: 992px) {
   .nav-users {
-    position: fixed;
-  }
-}
+    position: fixed; } }
+
 .social-account-container {
   display: inline-block;
-  position: relative;
-}
+  position: relative; }
+
 .btn-add-remove-account {
   pointer-events: none;
   position: absolute;
   right: 10px;
-  top: 10px;
-}
+  top: 10px; }
+
 .user-profile-picture {
   max-height: 150px;
-  min-height: 150px;
-}
+  min-height: 150px; }
+
 .cropArea {
   background: #E4E4E4;
   height: 300px;
-  width: 300px;
-}
+  width: 300px; }
+
 .social-button {
   -webkit-transition-duration: 0.4s;
-  -moz-transition-duration: 0.4s;
-  -o-transition-duration: 0.4s;
-  transition-duration: 0.4s;
-}
+  transition-duration: 0.4s; }
+
 .social-button:hover {
-  opacity: 0.65;
-}
+  opacity: 0.65; }

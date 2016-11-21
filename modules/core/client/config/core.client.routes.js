@@ -31,6 +31,16 @@
         url: '/',
         templateUrl: '/modules/core/client/views/home.client.view.html',
         controller: 'HomeController',
+        controllerAs: 'vm',
+        'class': 'homeclass',
+        onEnter: function ($rootScope) {
+          $rootScope.bodyClass = 'homeclass';
+        }
+      })
+      .state('footer', {
+        url: '/',
+        templateUrl: '/modules/core/client/views/footer.client.view.html',
+        controller: 'FooterController',
         controllerAs: 'vm'
       })
       .state('not-found', {
@@ -71,5 +81,6 @@
           pageTitle: 'Forbidden'
         }
       });
+    $urlRouterProvider.otherwise('/');
   }
 }());

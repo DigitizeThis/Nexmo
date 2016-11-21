@@ -8,8 +8,12 @@ var _ = require('lodash'),
   defaultAssets = require('./config/assets/default'),
   testAssets = require('./config/assets/test'),
   testConfig = require('./config/env/test'),
+  browserSync = require('browser-sync').create(),
   glob = require('glob'),
   gulp = require('gulp'),
+  sass = require('gulp-sass'),
+  nodemon = require('gulp-nodemon'),
+  reload = browserSync.reload,
   gulpLoadPlugins = require('gulp-load-plugins'),
   runSequence = require('run-sequence'),
   plugins = gulpLoadPlugins({
@@ -45,14 +49,30 @@ gulp.task('env:prod', function () {
   process.env.NODE_ENV = 'production';
 });
 
+// BrowserSnc task
+gulp.task('browser-sync', ['nodemon'], function() {
+  browserSync.init(null, {
+    proxy: 'http://localhost:3000',
+    port: 5000,  // use *different* port than above
+    notify: true
+  });
+});
+
 // Nodemon task
-gulp.task('nodemon', function () {
+gulp.task('nodemon', function (done) {
+  var running = false;
   return plugins.nodemon({
     script: 'server.js',
     nodeArgs: ['--debug'],
     ext: 'js,html',
     verbose: true,
     watch: _.union(defaultAssets.server.views, defaultAssets.server.allJS, defaultAssets.server.config)
+  })
+  .on('start', function () {
+    if (!running) {
+      done();
+      running = true;
+    }
   });
 });
 
@@ -71,7 +91,7 @@ gulp.task('watch', function () {
   plugins.refresh.listen();
 
   // Add watch rules
-  gulp.watch(defaultAssets.server.views).on('change', plugins.refresh.changed);
+  gulp.watch(defaultAssets.server.views).on('change', reload, plugins.refresh.changed);
   gulp.watch(defaultAssets.server.allJS, ['eslint']).on('change', plugins.refresh.changed);
   gulp.watch(defaultAssets.client.js, ['eslint']).on('change', plugins.refresh.changed);
   gulp.watch(defaultAssets.client.css, ['csslint']).on('change', plugins.refresh.changed);
@@ -114,7 +134,7 @@ gulp.task('watch:server:run-tests', function () {
 
 // CSS linting task
 gulp.task('csslint', function () {
-  return gulp.src(defaultAssets.client.css)
+  return gulp.src(defaultAssets.client.sass)
     .pipe(plugins.csslint('.csslintrc'))
     .pipe(plugins.csslint.formatter());
     // Don't fail CSS issues yet
@@ -167,9 +187,12 @@ gulp.task('cssmin', function () {
 // Sass task
 gulp.task('sass', function () {
   return gulp.src(defaultAssets.client.sass)
-    .pipe(plugins.sass())
+    .pipe(plugins.sass().on('error', sass.logError))
     .pipe(plugins.autoprefixer())
-    .pipe(gulp.dest('./modules/'));
+    .pipe(gulp.dest('./modules/'))
+    .pipe(reload({
+      stream: true
+    }));
 });
 
 // Less task
@@ -263,9 +286,9 @@ gulp.task('templatecache', function () {
     .pipe(plugins.templateCache('templates.js', {
       root: 'modules/',
       module: 'core',
-      templateHeader: '(function () {' + endOfLine + '	\'use strict\';' + endOfLine + endOfLine + '	angular' + endOfLine + '		.module(\'<%= module %>\'<%= standalone %>)' + endOfLine + '		.run(templates);' + endOfLine + endOfLine + '	templates.$inject = [\'$templateCache\'];' + endOfLine + endOfLine + '	function templates($templateCache) {' + endOfLine,
-      templateBody: '		$templateCache.put(\'<%= url %>\', \'<%= contents %>\');',
-      templateFooter: '	}' + endOfLine + '})();' + endOfLine
+      templateHeader: '(function () {' + endOfLine + '  \'use strict\';' + endOfLine + endOfLine + '  angular' + endOfLine + '    .module(\'<%= module %>\'<%= standalone %>)' + endOfLine + '    .run(templates);' + endOfLine + endOfLine + ' templates.$inject = [\'$templateCache\'];' + endOfLine + endOfLine + '  function templates($templateCache) {' + endOfLine,
+      templateBody: '   $templateCache.put(\'<%= url %>\', \'<%= contents %>\');',
+      templateFooter: ' }' + endOfLine + '})();' + endOfLine
     }))
     .pipe(gulp.dest('build'));
 });
@@ -434,7 +457,7 @@ gulp.task('test:coverage', function (done) {
 });
 
 // Run the project in development mode
-gulp.task('default', function (done) {
+gulp.task('default', ['browser-sync', 'sass'], function (done) {
   runSequence('env:dev', ['copyLocalEnvConfig', 'makeUploadsDir'], 'lint', ['nodemon', 'watch'], done);
 });
 

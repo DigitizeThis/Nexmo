@@ -1,0 +1,123 @@
+<section>
+  <div class="page-header">
+    <h1>Dashboards</h1>
+  </div>
+  <div class="list-group">
+    <a ng-repeat="dashboard in vm.dashboards"
+       ui-sref="dashboards.view({ dashboardId: dashboard._id })"
+       class="list-group-item">
+      <small class="list-group-item-text">
+        Posted on
+        <span ng-bind="dashboard.created | date:'mediumDate'"></span>
+        by
+        <span ng-if="dashboard.user" ng-bind="dashboard.user.displayName"></span>
+        <span ng-if="!dashboard.user">Deleted User</span>
+      </small>
+      <h4 class="list-group-item-heading" ng-bind="dashboard.name"></h4>
+    </a>
+  </div>
+  <div class="alert alert-warning text-center" ng-if="vm.dashboards.$resolved && !vm.dashboards.length">
+    No Dashboards yet, why don't you <a ui-sref="dashboards.create">create one</a>?
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12 col-md-12">
+        <h1 class="sub-header">Overview</h1>
+        <section id="overview" class="abstract">
+            <div class="row-fluid">
+                <div class="col-xs-12 col-lg-4 pull-left">
+                    <form method="get" class="form-horizontal" role="form">
+                        <div class="form-group">
+                            <label for="option-sms" class="sr-only"></label>
+                            <select id="option-sms" class="form-control">
+                                <option selected value="Outbound SMS">Outbound SMS</option>
+                                <option value="Inbound SMS">Inbound SMS</option>
+                                <option value="Outbound Voice">Outbound Voice</option>
+                                <option value="Inbound Voice">Inbound Voice</option>
+                                <option value="Number Insight">Number Insight</option>
+                                <option value="Number Verify">Number Verify</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+        <section id="chart" class="datachart">
+            <div class="row">
+                <div class="col-xs-12 col-md-12 col-lg-11">
+                    <div class="hpanel">
+                        <div class="panel-heading">
+                            <div class="panel-tools">
+                                <a class="showhide"><i class="fa fa-chevron-up"></i></a>
+                                <a class="closebox"><i class="fa fa-times"></i></a>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-3 text-center">
+                                    <div class="small">
+                                        <i class="fa fa-bolt"></i> Page views
+                                    </div>
+                                    <div>
+                                        <h1 class="font-extra-bold m-t-xl m-b-xs">
+                                            300,802
+                                        </h1>
+                                        <small>Page views in last month</small>
+                                    </div>
+                                    <div class="small m-t-xl">
+                                        <i class="fa fa-clock-o"></i> Data from January
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="text-center small">
+                                        <i class="fa fa-laptop"></i> Active users in current month (August)
+                                    </div>
+                                    <div class="flot-chart" style="height: 300px">
+                                        <div class="flot-chart-content" id="flot-line-chart"></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 text-center">
+                                    <div class="small">
+                                        <i class="fa fa-clock-o"></i> Active duration
+                                    </div>
+                                    <div>
+                                        <h1 class="font-extra-bold m-t-xl m-b-xs">
+                                            10 Months
+                                        </h1>
+                                        <small>And four weeks</small>
+                                    </div>
+                                    <div class="small m-t-xl">
+                                        <i class="fa fa-clock-o"></i> Last active in 12.10.2015
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="smsOverview">
+            <div class="row-fluid">
+                <div class="col-xs-4 col-md-4">
+                    <div class="text-center">
+                        <h3 class="text-success"><i class="fa fa-arrow-left"></i> Outbound</h3>
+                        <h1 class="text-center">6</h1>
+                    </div>
+                </div>
+                <div class="col-xs-4 col-md-4">
+                    <div class="text-center">
+                        <h3 class="text-danger"><i class="fa fa-times"></i> Bounced</h3>
+                        <h1 class="">0</h1>
+                    </div>
+                </div>
+                <div class="col-xs-4 col-md-4">
+                    <div class="text-center">
+                        <h3 class="text-warning"><i class="fa fa-credit-card"></i> Spent</h3>
+                        <h1 class="">€0.174</h1>
+                    </div>
+                </div>
+            </div>                        
+        </section>
+    </div>
+  </div> <!-- End Row Fluid -->
+</section>

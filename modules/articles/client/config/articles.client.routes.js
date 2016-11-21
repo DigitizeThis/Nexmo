@@ -12,13 +12,17 @@
       .state('articles', {
         abstract: true,
         url: '/articles',
-        template: '<ui-view/>'
+        template: '<ui-view/>',
+        data: {
+          roles: ['user', 'admin']
+        }
       })
       .state('articles.list', {
         url: '',
         templateUrl: '/modules/articles/client/views/list-articles.client.view.html',
         controller: 'ArticlesListController',
         controllerAs: 'vm',
+        viewClass: 'allbodyclass',
         data: {
           pageTitle: 'Articles List'
         }

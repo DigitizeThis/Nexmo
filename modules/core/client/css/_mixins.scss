@@ -1,0 +1,74 @@
+@mixin helvetica-stack() {
+  font-family: $font-family-sans-serif;
+  font-weight: 300;
+}
+@mixin roboto-stack() {
+  font-family: $font-family-custom;
+  font-weight: 400;
+}
+@mixin roboto-mediumStack() {
+  font-family: $font-family-custom;
+  font-weight: 500;
+}
+
+@mixin prefixPadding($pad-start) {
+  -webkit-padding-start: $pad-start;
+  -moz-padding-start: $pad-start;
+  -ms-padding-start: $pad-start;
+  -o-padding-start: $pad-start;
+  padding-start: $pad-start;
+}
+
+@mixin borderRadius($border-radius) {
+  -webkit-border-radius: $border-radius;
+  -moz-border-radius: $border-radius;
+  -o-border-radius: $border-radius;
+  -ms-border-radius: $border-radius;
+  border-radius: $border-radius;
+}
+
+@mixin borderBox($border-box) {
+  -webkit-box-sizing: $border-box;
+  -moz-box-sizing: $border-box;
+  -o-box-sizing: $border-box;
+  -ms-box-sizing: $border-box;
+  box-sizing: $border-box;
+}
+@mixin userSelect($user-select) {
+  -webkit-user-select: $border-box;
+  -moz-user-select: $border-box;
+  -o-user-select: $border-box;
+  -ms-user-select: $border-box;
+  user-select: $border-box;
+}
+
+@mixin kitAppearance($val-appearance) {
+  -webkit-appearance: $val-appearance;
+  -moz-appearance: $val-appearance;
+  -o-appearance: $val-appearance;
+  -ms-appearance: $val-appearance;
+  appearance: $val-appearance;
+}
+
+@mixin gradientBgImg($bg-grad-white, $end-grad-white) {
+  background-image: -webkit-linear-gradient($bg-grad-white);
+  background-image: -moz-linear-gradient($bg-grad-white);
+  background-image: -ms-linear-gradient($bg-grad-white);
+  background-image: -o-linear-gradient($bg-grad-white);
+  background-image: linear-gradient($end-grad-white);
+}
+@mixin gradientBgImg1($bg-grad-white-rev, $end-grad-white-rev) {
+  background-image: -webkit-linear-gradient($bg-grad-white-rev);
+  background-image: -moz-linear-gradient($bg-grad-white-rev);
+  background-image: -ms-linear-gradient($bg-grad-white-rev);
+  background-image: -o-linear-gradient($bg-grad-white-rev);
+  background-image: linear-gradient($end-grad-white-rev);
+}
+
+@mixin gradientBgImg2($bg-grad-silver, $end-grad-silver) {
+  background-image: -webkit-linear-gradient($bg-grad-silver);
+  background-image: -moz-linear-gradient($bg-grad-silver);
+  background-image: -ms-linear-gradient($bg-grad-silver);
+  background-image: -o-linear-gradient($bg-grad-silver);
+  background-image: linear-gradient($end-grad-silver );
+}

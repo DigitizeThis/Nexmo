@@ -1,0 +1,22 @@
+<section>
+  <div class="page-header">
+    <h1>Messagings</h1>
+  </div>
+  <div class="list-group">
+    <a ng-repeat="messaging in vm.messagings"
+       ui-sref="messagings.view({ messagingId: messaging._id })"
+       class="list-group-item">
+      <small class="list-group-item-text">
+        Posted on
+        <span ng-bind="messaging.created | date:'mediumDate'"></span>
+        by
+        <span ng-if="messaging.user" ng-bind="messaging.user.displayName"></span>
+        <span ng-if="!messaging.user">Deleted User</span>
+      </small>
+      <h4 class="list-group-item-heading" ng-bind="messaging.name"></h4>
+    </a>
+  </div>
+  <div class="alert alert-warning text-center" ng-if="vm.messagings.$resolved && !vm.messagings.length">
+    No Messagings yet, why don't you <a ui-sref="messagings.create">create one</a>?
+  </div>
+</section>

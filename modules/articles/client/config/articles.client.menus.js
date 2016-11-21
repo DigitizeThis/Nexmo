@@ -12,7 +12,7 @@
       title: 'Articles',
       state: 'articles',
       type: 'dropdown',
-      roles: ['*']
+      roles: ['user, admin']
     });
 
     // Add the dropdown list item
