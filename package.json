@@ -8,7 +8,7 @@
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "https://github.com/meanjs/mean.git"
+    "url": "https://github.com/DigitizeThis/Nexmo.git"
   },
   "engines": {
     "node": ">=4.6.0",
