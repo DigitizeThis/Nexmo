@@ -12,6 +12,7 @@ var _ = require('lodash'),
   glob = require('glob'),
   gulp = require('gulp'),
   sass = require('gulp-sass'),
+  sassLint = require('gulp-sass-lint'),
   nodemon = require('gulp-nodemon'),
   reload = browserSync.reload,
   gulpLoadPlugins = require('gulp-load-plugins'),
@@ -95,7 +96,7 @@ gulp.task('watch', function () {
   gulp.watch(defaultAssets.server.allJS, ['eslint']).on('change', plugins.refresh.changed);
   gulp.watch(defaultAssets.client.js, ['eslint']).on('change', plugins.refresh.changed);
   gulp.watch(defaultAssets.client.css, ['csslint']).on('change', plugins.refresh.changed);
-  gulp.watch(defaultAssets.client.sass, ['sass', 'csslint']).on('change', plugins.refresh.changed);
+  gulp.watch(defaultAssets.client.sass, ['sass', 'sasslint']).on('change', plugins.refresh.changed);
   gulp.watch(defaultAssets.client.less, ['less', 'csslint']).on('change', plugins.refresh.changed);
 
   if (process.env.NODE_ENV === 'production') {
@@ -139,6 +140,18 @@ gulp.task('csslint', function () {
     .pipe(plugins.csslint.formatter());
     // Don't fail CSS issues yet
     // .pipe(plugins.csslint.failFormatter());
+});
+
+gulp.task('sasslint', function () {
+  return gulp.src(defaultAssets.client.sass)
+  .pipe(sassLint({
+    options: {
+      configFile: '.sass-lint.yml',
+      formatter: 'checkstyle'
+    }
+  }))
+  .pipe(sassLint.format())
+  .pipe(sassLint.failOnError());
 });
 
 // ESLint JS linting task
@@ -422,7 +435,7 @@ gulp.task('protractor', ['webdriver_update'], function () {
 
 // Lint CSS and JavaScript files.
 gulp.task('lint', function (done) {
-  runSequence('less', 'sass', ['csslint', 'eslint'], done);
+  runSequence('less', 'sass', ['sasslint', 'eslint'], done);
 });
 
 // Lint project files and minify them into two production files.
