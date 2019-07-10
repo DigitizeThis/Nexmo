@@ -80,7 +80,7 @@
     "browser-sync": "^2.18.1",
     "coveralls": "~2.11.6",
     "del": "^2.2.2",
-    "eslint": "~2.2.0",
+    "eslint": "~4.18.2",
     "eslint-config-airbnb": "~6.0.2",
     "gulp": "~3.9.1",
     "gulp-angular-templatecache": "~2.0.0",
