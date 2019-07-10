@@ -48,7 +48,7 @@
     "express-hbs": "^1.0.2",
     "express-session": "~1.14.1",
     "file-stream-rotator": "~0.0.6",
-    "generate-password": "~1.2.0",
+    "generate-password": "~1.4.1",
     "generator-meanjs": "^0.4.5",
     "glob": "~7.1.0",
     "helmet": "~2.3.0",
